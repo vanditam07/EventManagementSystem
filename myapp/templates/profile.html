@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% load static %} <!-- Make sure to load static here -->
+
+  <div class="container profile-container">
+    <!-- User Header Section -->
+    <div class="profile-header">
+      <h1 class="profile-title">Welcome, {{ user_profile.user.username }}</h1>
+      <p class="profile-email"><strong>Email:</strong> {{ user_profile.user.email }}</p>
+    </div>
+
+    <!-- User Profile Information -->
+    {% if user_profile %}
+    <div class="profile-info">
+      <h2 class="section-heading">Profile Details</h2> <!-- Updated Heading -->
+      <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+      <p><strong>Location:</strong> {{ user_profile.location }}</p>
+      <p><strong>Joined On:</strong> {{ user_profile.user.date_joined|date:"F j, Y" }}</p>
+      <p><strong>Last Login:</strong> {{ user_profile.user.last_login|date:"F j, Y, g:i A" }}</p>
+    </div>
+    {% else %}
+    <p class="profile-info-msg">You haven't added any profile information yet. Please update your profile.</p>
+    {% endif %}
+
+    <!-- RSVP'd Events Section -->
+    <div class="rsvp-section">
+      <h2 class="section-heading">RSVP'd Events</h2>
+      {% if rsvp_events %}
+      <ul class="rsvp-events-list">
+        {% for event in rsvp_events %}
+        <li class="rsvp-event-item">
+          <p><strong>{{ event.title }}</strong></p>
+          <p><i class="far fa-calendar-alt"></i> <strong>Date:</strong> {{ event.date }} | <i class="fas fa-clock"></i> <strong>Time:</strong> {{ event.time }}</p>
+          <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ event.location }}</p>
+          <p><strong>Description:</strong> {{ event.description|truncatewords:20 }}</p>
+          <a href="{% url 'event_detail' event_id=event.id %}" class="btn btn-primary">View Event Details</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="no-rsvp-msg">You haven't RSVP'd for any events yet. Browse and join upcoming events!</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Inline CSS for Profile and RSVP Section -->
+  <style>
+    /* General styling for the page */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, rgba(106, 27, 154, 0.8), rgba(142, 36, 170, 0.8)), url("{% static 'bg.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Profile Container */
+    .profile-container {
+      padding: 60px 15px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      margin-top: 80px;
+    }
+
+    /* Profile Header */
+    .profile-header {
+      margin-bottom: 40px;
+    }
+
+    .profile-title {
+      font-size: 50px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-email {
+      font-size: 18px;
+      color: #ddd;
+    }
+
+    /* Profile Information Section */
+    .profile-info {
+      margin-bottom: 40px;
+      font-size: 18px;
+    }
+
+    .section-heading {
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-info p {
+      margin-bottom: 20px;
+      color: #e1bee7;
+      line-height: 1.6;
+    }
+
+    .profile-info-msg {
+      color: #e57373;
+      font-size: 18px;
+      font-weight: 600;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* RSVP Section */
+    .rsvp-section {
+      margin-top: 40px;
+    }
+
+    .rsvp-events-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .rsvp-event-item {
+      background-color: #ffffff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      color: #4a148c;
+    }
+
+    .rsvp-event-item p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .rsvp-event-item a {
+      background-color: #8e24aa;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .rsvp-event-item a:hover {
+      background-color: #ab47bc;
+      transform: translateY(-3px);
+    }
+
+    .no-rsvp-msg {
+      font-size: 18px;
+      color: #e57373;
+      font-weight: 600;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      .profile-title {
+        font-size: 28px;
+      }
+
+      .profile-email {
+        font-size: 16px;
+      }
+
+      .profile-info p {
+        font-size: 16px;
+      }
+
+      .rsvp-event-item p {
+        font-size: 14px;
+      }
+
+      .rsvp-events-list {
+        padding: 0 10px;
+      }
+    }
+  </style>
+{% endblock %}

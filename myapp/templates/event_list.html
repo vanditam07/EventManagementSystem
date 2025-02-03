@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Event List -->
+<div class="container event-list-container">
+  <h1 class="heading-primary">Upcoming Events</h1>
+  <div class="event-list">
+    {% for event in events %}
+    <div class="event-card">
+      <div class="event-info">
+        <h2 class="event-title">{{ event.title }}</h2>
+        <p class="event-date">
+          <i class="far fa-calendar-alt"></i> <strong>Date:</strong> {{ event.date }} | <i class="fas fa-clock"></i> <strong>Time:</strong> {{ event.time }}
+        </p>
+        <p class="event-location">
+          <i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ event.location }}
+        </p>
+        <p class="event-description">
+          <strong>Description:</strong> {{ event.description|truncatewords:20 }}
+        </p>
+        
+        <!-- Additional event details -->
+        <div class="event-meta">
+          
+          </span>
+          <span class="event-organizer">
+            <i class="fas fa-users"></i> <strong>Organizer:</strong> {{ event.organizer }}
+          </span>
+          <span class="event-price">
+            <i class="fas fa-dollar-sign"></i> <strong>Price:</strong> {{ event.price }}
+          </span>
+        </div>
+      </div>
+      <a href="{% url 'event_detail' event_id=event.id %}" class="btn btn-primary">View Details</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Inline CSS for Event List -->
+<style>
+  /* General styling for the page */
+  body {
+    font-family: 'Poppins', sans-serif; /* Clean font */
+    background: linear-gradient(to right, rgba(106, 27, 154, 0.8), rgba(142, 36, 170, 0.8)), url("{% static 'bg.jpg' %}"); /* Purple gradient with background image */
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* White text */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .event-list-container {
+    padding: 60px 15px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent dark background for readability */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-top: 80px; /* Add margin to avoid overlap with navbar */
+  }
+
+  .heading-primary {
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    justify-items: center;
+  }
+
+  .event-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 350px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .event-info {
+    padding: 20px;
+  }
+
+  .event-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #4a148c; /* Dark purple */
+    margin-bottom: 10px;
+  }
+
+  .event-date,
+  .event-location,
+  .event-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .event-date {
+    color: #6a1b9a; /* Lighter purple */
+    font-style: italic;
+  }
+
+  .event-location {
+    color: #9c27b0; /* Location color */
+    font-weight: 500;
+  }
+
+  .event-description {
+    font-size: 14px;
+    color: #7b1fa2; /* Slightly lighter purple */
+    font-style: italic;
+    margin-bottom: 15px;
+  }
+
+  .event-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #6a1b9a;
+    margin-bottom: 20px;
+  }
+
+  .event-category,
+  .event-organizer,
+  .event-price {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .event-category i,
+  .event-organizer i,
+  .event-price i {
+    color: #8e24aa;
+  }
+
+  .btn-primary {
+    background-color: #8e24aa;
+    border-color: #8e24aa;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn-primary:hover {
+    background-color: #ab47bc;
+    border-color: #ab47bc;
+    transform: translateY(-3px); /* Button hover effect */
+  }
+
+  /* Responsive Layout */
+  @media (max-width: 768px) {
+    .heading-primary {
+      font-size: 28px;
+    }
+
+    .event-title {
+      font-size: 20px;
+    }
+
+    .event-date {
+      font-size: 14px;
+    }
+
+    .event-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% endblock %}

@@ -1,0 +1,517 @@
+{% extends 'base.html' %} 
+{% block content %}
+{% load static %}
+
+<style>
+  /* Global Styles */
+  body {
+    font-family: 'Poppins', sans-serif; /* Modern, clean font */
+    /* You can still use your background image or a gradient here */
+    background: url("{% static 'bg.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+    color: #4a148c; /* Dark purple text color */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container */
+  .container {
+    margin-top: 30px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    background-color: rgba(142, 68, 173, 0.9) !important; /* Purple with transparency */
+  }
+  
+  .navbar-toggler-icon {
+    color: #ffffff;
+  }
+  
+  .navbar-brand {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 24px;
+  }
+  
+  .navbar-nav .nav-link {
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 16px;
+  }
+    /* Section Title & Description */
+  .section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #4a148c; /* Dark purple */
+    margin-bottom: 15px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .section-description {
+    font-size: 18px;
+    color: #6a1b9a; /* Lighter purple */
+    text-align: center;
+    margin-bottom: 50px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    font-size: 40px;
+    margin-right: 15px;
+    color: #8e24aa; /* Medium purple */
+    transition: color 0.3s ease;
+  }
+
+  .feature-icon:hover {
+    color: #ab47bc; /* Lighter purple on hover */
+  }
+
+  /* Accordion Styles */
+  .accordion-button {
+    background-color: #ffffff;
+    color: #4a148c;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 20px 25px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    width: 100%; /* Make accordion buttons stretch to full width */
+    text-align: left; /* Align text to the left */
+  }
+
+  .accordion-button:hover {
+    background-color: #f0f0f0;
+    color: #8e24aa;
+    transform: translateY(-3px);
+  }
+
+  .accordion-button:not(.collapsed) {
+    background-color: #8e24aa; /* Purple */
+    color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  .accordion-button:not(.collapsed) .feature-icon {
+    color: #ffffff;
+  }
+
+  .accordion-item {
+    border: none;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.5s ease-in-out;
+  }
+
+  .accordion-body {
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4a148c;
+  }
+
+  /* Accordion Collapse Animation */
+  .accordion-collapse {
+    transition: max-height 0.35s ease-in-out;
+  }
+
+  /* Feature Section */
+  .features {
+    padding: 60px 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align content */
+    justify-content: center;
+  }
+
+  /* Feature Boxes */
+  .feature {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Make feature items full width */
+    max-width: 400px; /* Limit max width for better responsiveness */
+  }
+
+  .feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #4a148c;
+    transition: color 0.3s ease;
+  }
+
+  .feature-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #4a148c;
+    margin-bottom: 15px;
+  }
+
+  .feature-text {
+    font-size: 16px;
+    color: #6a1b9a;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Button Style */
+  .btn-primary {
+    background-color: #8e24aa;
+    border-color: #8e24aa;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  .btn-primary:hover {
+    background-color: #ab47bc;
+    border-color: #ab47bc;
+    transform: translateY(-3px); /* Button hover effect */
+  }
+
+  .btn-secondary {
+    background-color: #6a1b9a;
+    border-color: #6a1b9a;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  .btn-secondary:hover {
+    background-color: #ab47bc;
+    border-color: #ab47bc;
+    transform: translateY(-3px);
+  }
+
+  /* Align buttons in a row for large screens */
+  @media (min-width: 768px) {
+    .features {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .feature {
+      width: 250px; /* Set fixed width for feature items */
+    }
+  }
+
+  /* Align buttons inside the accordion */
+  .accordion-button,
+  .accordion-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hero Section */
+  .hero {
+    background-color: #4a148c;
+    padding: 80px 15px;
+    text-align: center;
+    color: white;
+  }
+
+  .hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+
+  /* Latest Events Section */
+  .latest-events {
+    padding: 60px 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+  }
+
+  .event-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .event-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .event-title {
+    font-size: 22px;
+    color: #4a148c;
+    margin-bottom: 10px;
+  }
+
+  .event-info {
+    font-size: 14px;
+    color: #6a1b9a;
+    margin-bottom: 15px;
+  }
+
+  .event-info i {
+    margin-right: 5px;
+  }
+
+  .event-card a {
+    display: inline-block;
+    background-color: #8e24aa;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .event-card a:hover {
+    background-color: #ab47bc;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    background-color: #8e24aa;
+    border-color: #8e24aa;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+  }
+  
+  /* Keyframe Animation */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 30px;
+    }
+  
+    .accordion-button {
+      font-size: 16px;
+      padding: 15px 20px;
+    }
+  
+    .accordion-body {
+      padding: 20px;
+    }
+  
+    .feature-icon {
+      font-size: 40px;
+    }
+  
+    .feature-title {
+      font-size: 20px;
+    }
+  
+    .feature-text {
+      font-size: 14px;
+      max-width: 90%;
+    }
+  
+    .btn-primary {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container" style="text-align: center;">
+    <h1 class="hero-title">Welcome to the Event Management System</h1>
+    <p class="hero-subtitle">
+      Effortlessly organize and manage your events with our intuitive platform.
+    </p>
+    <a href="{% url 'event_list' %}" class="btn btn-primary">Explore Events</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="container">
+    <h2 class="section-title text-center">Key Features of Our Event Management System</h2>
+    <p class="section-description text-center mb-5">
+      Discover the powerful tools designed to make event management seamless. Click on each feature below to learn more about how we can assist you in organizing unforgettable events.
+    </p>
+    
+    <div class="accordion" id="featureAccordion">
+      <!-- Feature 1: Event Calendar & Scheduling -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-calendar-alt feature-icon"></i> Event Calendar & Scheduling
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#featureAccordion">
+          <div class="accordion-body">
+            <p>
+              Stay organized with our interactive event calendar. Plan and schedule events seamlessly by assigning dates, times, and venues. Our calendar integrates with external calendars so you’ll never miss an important date.
+            </p>
+            <p>
+              Enjoy color-coded categories, automatic reminders for organizers and attendees, and real-time RSVP tracking.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2: RSVP Management & Guest Lists -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <i class="fas fa-users feature-icon"></i> RSVP Management & Guest Lists
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#featureAccordion">
+          <div class="accordion-body">
+            <p>
+              Simplify guest list management with our automated RSVP system. Send invitations, track responses, and collect details like meal preferences or special requests.
+            </p>
+            <p>
+              Real-time updates keep your guest list current and help you send automated reminders.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3: Venue Selection & Management -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <i class="fas fa-map-marker-alt feature-icon"></i> Venue Selection & Management
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#featureAccordion">
+          <div class="accordion-body">
+            <p>
+              Browse and select the perfect venue with our curated listings, complete with photos, descriptions, and availability details.
+            </p>
+            <p>
+              Manage contracts, deposits, and direct communications with venue owners, ensuring all logistics are covered.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 4: Customization & Event Personalization -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <i class="fas fa-cogs feature-icon"></i> Customization & Event Personalization
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#featureAccordion">
+          <div class="accordion-body">
+            <p>
+              Personalize every detail of your event with custom branding options. From invitations to décor, tailor your event to reflect your unique style.
+            </p>
+            <p>
+              Easily customize registration forms to capture essential details, making each event truly your own.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 5: Real-time Analytics & Reporting -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <i class="fas fa-chart-line feature-icon"></i> Real-time Analytics & Reporting
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#featureAccordion">
+          <div class="accordion-body">
+            <p>
+              Gain valuable insights into your event’s performance with real-time analytics. Track registrations, attendance, and engagement effortlessly.
+            </p>
+            <p>
+              Detailed reports help you understand what worked well and identify areas for improvement.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Events Section -->
+<section class="latest-events">
+  <div class="container">
+    <h2 class="section-title text-center">Latest Events</h2>
+    <div class="event-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+      {% for event in events %}
+      <div class="event-card" style="background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; max-width: 300px; width: 100%;">
+        <h3 class="event-title">{{ event.title }}</h3>
+        <p class="event-info">
+          <i class="far fa-calendar-alt" style="color: #8e24aa;"></i> {{ event.date }}
+        </p>
+        <a href="{% url 'event_detail' event_id=event.id %}" class="btn btn-secondary" style="background-color: #8e24aa; border-color: #8e24aa; color: #ffffff; padding: 10px 20px; border-radius: 8px; transition: background-color 0.3s;">View Details</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Include Bootstrap JS and Popper.js if not already loaded in base.html -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+{% endblock %}

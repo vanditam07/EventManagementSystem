@@ -1,0 +1,280 @@
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif; /* Change to a more modern, clean font */
+  background-color: #f8f9fa; /* Light gray background */
+  color: #343a40; /* Dark text color for contrast */
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  margin-top: 40px;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: rgba(52, 58, 64, 0.9) !important; /* Dark gray with slight transparency */
+}
+
+.navbar-toggler-icon {
+  color: #ffffff;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #343a40;
+  margin-bottom: 15px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Section Description */
+.section-description {
+  font-size: 18px;
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 50px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+/* Feature Icons */
+.feature-icon {
+  font-size: 40px;
+  margin-right: 15px;
+  color: #ff9f00; /* Vibrant yellow */
+  transition: color 0.3s ease;
+}
+
+.feature-icon:hover {
+  color: #ffc107; /* Light yellow on hover */
+}
+
+/* Accordion Styles */
+.accordion-button {
+  background-color: #ffffff;
+  color: #343a40;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 20px 25px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.accordion-button:hover {
+  background-color: #f0f0f0;
+  color: #ff9f00;
+  transform: translateY(-3px);
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #ff9f00;
+  color: #ffffff;
+  transform: translateY(-3px); /* Give a raised effect */
+}
+
+.accordion-button:not(.collapsed) .feature-icon {
+  color: #ffffff;
+}
+
+.accordion-item {
+  border: none;
+  margin-bottom: 20px;
+}
+
+.accordion-body {
+  padding: 25px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #6c757d;
+}
+
+/* Add subtle animation to expand and collapse accordion */
+.accordion-collapse {
+  transition: max-height 0.35s ease-in-out;
+}
+
+/* Feature Section */
+.features {
+  padding: 60px 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 30px 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: #343a40;
+  transition: color 0.3s ease;
+}
+
+.feature-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+.feature-text {
+  font-size: 16px;
+  color: #6c757d;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Button Style for Each Feature */
+.btn-primary {
+  background-color: #ff9f00;
+  border-color: #ff9f00;
+  padding: 12px 25px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+/* Animation Effects */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.accordion-item {
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+/* Styling for Feature Accordion for smaller screens */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 30px;
+  }
+
+  .accordion-button {
+    font-size: 16px;
+    padding: 15px 20px;
+  }
+
+  .accordion-body {
+    padding: 20px;
+  }
+
+  .feature-icon {
+    font-size: 40px;
+  }
+
+  .feature-title {
+    font-size: 20px;
+  }
+
+  .feature-text {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  /* General styling for Event Detail */
+.event-detail {
+  padding: 60px 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
+}
+
+.event-detail h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #4a148c; /* Dark purple */
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.event-detail p {
+  font-size: 18px;
+  color: #6a1b9a; /* Lighter purple */
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.event-detail .description {
+  font-style: italic;
+}
+
+.rsvp-form {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-primary {
+  background-color: #8e24aa;
+  border-color: #8e24aa;
+  padding: 12px 25px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background-color: #ab47bc;
+  border-color: #ab47bc;
+  transform: translateY(-3px); /* Button hover effect */
+}
+
+.rsvp-form button {
+  font-size: 18px;
+  color: white;
+}
+}

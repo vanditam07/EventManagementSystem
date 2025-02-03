@@ -1,0 +1,113 @@
+{% extends 'base.html' %} 
+{% block content %}
+<!-- Load static tag at the top of the block -->
+{% load static %}
+
+<!-- Event Detail -->
+<div class="container event-detail">
+  <h1>{{ event.title }}</h1>
+  <p><strong>Date:</strong> {{ event.date }}</p>
+  <p><strong>Time:</strong> {{ event.time }}</p>
+  <p><strong>Description:</strong></p>
+  <p class="description">{{ event.description }}</p>
+
+  {% if user.is_authenticated %}
+  <form action="{% url 'rsvp' event.id %}" method="post" class="rsvp-form">
+    {% csrf_token %}
+    <button type="submit" class="btn-primary">RSVP</button>
+  </form>
+  {% endif %}
+
+  <!-- Add more event details here -->
+</div>
+
+<!-- Inline CSS for Event Detail -->
+<style>
+  /* General styling for the whole page (applies to the body) */
+  body {
+    font-family: 'Poppins', sans-serif; /* Modern, clean font */
+    background: url("{% static 'bg.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+    color: #4a148c; /* Dark purple text color */
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Event Detail Container */
+  .event-detail {
+    padding: 60px 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 60px;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .event-detail h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #4a148c; /* Dark purple */
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .event-detail p {
+    font-size: 18px;
+    color: #6a1b9a; /* Lighter purple */
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .event-detail .description {
+    font-style: italic;
+  }
+
+  /* RSVP Form Styling */
+  .rsvp-form {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  /* Primary RSVP Button */
+  .btn-primary {
+    background-color: #8e24aa;
+    border-color: #8e24aa;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background-color: #ab47bc;
+    border-color: #ab47bc;
+    transform: translateY(-3px); /* Button hover effect */
+  }
+
+  .rsvp-form button {
+    font-size: 18px;
+    color: white;
+  }
+
+  /* Responsive Layout for Event Detail */
+  @media (max-width: 768px) {
+    .event-detail {
+      padding: 30px 15px;
+    }
+
+    .event-detail h1 {
+      font-size: 28px;
+    }
+
+    .event-detail p {
+      font-size: 16px;
+    }
+  }
+</style>
+
+{% endblock %}
